@@ -14,6 +14,7 @@ ENV_USER_AGENT = "USER_AGENT"
 
 START_URL = "https://tevis.ekom21.de/stdar/select2?md=4"
 SUGGEST_URL = "https://tevis.ekom21.de/stdar/suggest?{}=1"
+REPO_URL = "https://github.com/mrd0ll4r/darmstadt-city-service-bot"
 
 
 def test_bot(bot: telebot.TeleBot, chat_id: str, service_id: str,
@@ -21,8 +22,11 @@ def test_bot(bot: telebot.TeleBot, chat_id: str, service_id: str,
     me = bot.get_me()
     print(me)
     bot.send_message(chat_id,
-                     "🕵️ Darmstadt City Service Bot looking for appointments for service {} at location {}".format(
-                         service_id, location_id))
+                     "🕵️ [Darmstadt City Service Bot]({}) looking for appointments for service {} at location {}".format(
+                         REPO_URL,
+                         service_id, location_id),
+                     parse_mode="MARKDOWN",
+                     disable_web_page_preview=True)
 
 
 def search_for_apointments(bot: telebot.TeleBot, service_id: str, chat_id: str,
@@ -65,6 +69,7 @@ def search_for_apointments(bot: telebot.TeleBot, service_id: str, chat_id: str,
 
 
 if __name__ == '__main__':
+    print("This is the Darmstadt City Services bot ({})".format(REPO_URL))
     print("Loading environment...")
     load_dotenv()
 
