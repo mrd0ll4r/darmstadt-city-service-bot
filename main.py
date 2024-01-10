@@ -72,6 +72,11 @@ def search_for_apointments(bot: telebot.TeleBot, service_id: str, chat_id: str,
                              traceback.format_exc()))
         return
 
+    # Filter out server errors instead of spamming the chat
+    if 500 <= response.status_code < 600:
+        logging.debug("Request failed: %s", response.text)
+        return
+
     if (response.status_code != 200 or
             response.text.find("Es ist ein Fehler aufgetreten") != -1):
         logging.error("Request failed: %s", response.text)
@@ -79,7 +84,9 @@ def search_for_apointments(bot: telebot.TeleBot, service_id: str, chat_id: str,
                          "Something went wrong :(")
         return
 
-    if response.text.find("Kein freier Termin verfügbar") == -1:
+    if (response.text.find(
+            "wählen Sie die gewünschte Uhrzeit") != -1 or response.text.find(
+            "Kein freier Termin verfügbar") == -1):
         logging.info("Found an appointment")
         bot.send_message(chat_id,
                          "Appointments available, click me: {}".format(
