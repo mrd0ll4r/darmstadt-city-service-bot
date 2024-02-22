@@ -14,7 +14,7 @@ ENV_USER_AGENT = "USER_AGENT"
 ENV_LOG_LEVEL = "LOG_LEVEL"
 
 START_URL = "https://tevis.ekom21.de/stdar/select2?md=4"
-SUGGEST_URL = "https://tevis.ekom21.de/stdar/suggest?{}=1"
+LOCATION_URL = "https://tevis.ekom21.de/stdar/location?{}=1"
 REPO_URL = "https://github.com/mrd0ll4r/darmstadt-city-service-bot"
 MAXIMUM_BOT_MESSAGE_LENGTH = 200
 
@@ -56,9 +56,12 @@ def search_for_apointments(bot: telebot.TeleBot, service_id: str, chat_id: str,
         # Get some cookies
         _ = session.get(START_URL)
 
+        # Get more cookies?
+        _ = session.get(LOCATION_URL.format(service_id))
+
         # Find available appointments
         response = session.post(
-            SUGGEST_URL.format(service_id),
+            LOCATION_URL.format(service_id),
             {
                 "loc": location_id,
                 "select_location": location_id,
