@@ -47,8 +47,8 @@ def test_bot(bot: telebot.TeleBot, chat_id: str, service_id: str,
                      disable_web_page_preview=True)
 
 
-def search_for_apointments(bot: telebot.TeleBot, service_id: str, chat_id: str,
-                           location_id: str):
+def search_for_appointments(bot: telebot.TeleBot, service_id: str, chat_id: str,
+                            location_id: str):
     session = requests.Session()
 
     logging.info("Looking for appointments...")
@@ -128,5 +128,5 @@ if __name__ == '__main__':
 
     print("Bot functional, starting to look for appointments...")
     while True:
-        search_for_apointments(bot, service_id, chat_id, location_id)
+        search_for_appointments(bot, service_id, chat_id, location_id)
         time.sleep(300)
