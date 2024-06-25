@@ -39,11 +39,6 @@ Services:
 Locations:
 - Luisencenter: `44`
 
-## TODO
-
-It'd be nice to extract the actual dates and time slots offered.
-That way, we could send a nice "We found an appointment on `X`" message instead of the generic one.
-
 ## License
 
 MIT, see [LICENSE](LICENSE).

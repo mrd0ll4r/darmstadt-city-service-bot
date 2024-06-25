@@ -2,6 +2,8 @@ import logging
 import os
 import time
 import traceback
+
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 import telebot
 import requests
@@ -87,16 +89,23 @@ def search_for_appointments(bot: telebot.TeleBot, service_id: str, chat_id: str,
                          "Something went wrong :(")
         return
 
-    if (response.text.find(
+    if (not (response.text.find(
             "wählen Sie die gewünschte Uhrzeit") != -1 or response.text.find(
-            "Kein freier Termin verfügbar") == -1):
-        logging.info("Found an appointment")
-        bot.send_message(chat_id,
-                         "Appointments available, click me: {}".format(
-                             START_URL))
-
-    else:
+        "Kein freier Termin verfügbar") == -1)):
         logging.info("Found no appointments")
+        return
+
+    logging.info("Found an appointment")
+
+    # Extract available dates
+    document = BeautifulSoup(response.text, 'html.parser')
+    suggestions = document.find("div", {"id": "sugg_accordion"})
+    dates = [d.text for d in suggestions.find_all("h3")]
+
+    bot.send_message(chat_id,
+                     "Appointments available, click me: {}\n\n"
+                     "Available Dates:\n{}".format(
+                         START_URL, "\n".join(dates)))
 
 
 if __name__ == '__main__':
