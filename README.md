@@ -30,14 +30,15 @@ This bot currently only supports appointments at the Meldebehörde (https://tevi
 Valid as of: **2024-06-25**
 
 Services:
-- Anmeldung (Einzelperson): `cnc-2008`
-- Anmeldung (Familie): `cnc-2006`
-- Ummeldung (Einzelperson): `cnc-2010`
-- Ummeldung (Familie): `cnc-2033`
-- Änderung KFZ-Schein bei Ummeldung: `cnc-2032`
+- Anmeldung (Einzelperson): `cnc-2099`
+- Anmeldung (Familie): `cnc-2097`
+- Ummeldung (Einzelperson): `cnc-2101`
+- Ummeldung (Familie): `cnc-2123`
+- Änderung KFZ-Schein bei Ummeldung: `cnc-2122`
+- Antrag Personalausweis: `cnc-2111`
 
 Locations:
-- Luisencenter: `44`
+- Luisencenter: `46`
 
 ## License
 
